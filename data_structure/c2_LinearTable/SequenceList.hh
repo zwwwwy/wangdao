@@ -1,5 +1,6 @@
 #ifndef CPP_LINEARTABLE_HH
 #define CPP_LINEARTABLE_HH
+#include <cstdlib>
 #include <iostream>
 
 template <typename T> class SequenceList
@@ -14,11 +15,12 @@ template <typename T> class SequenceList
 	void PrintList();
 	bool Empty();
 	void DestoryList();
+	void FillRandInt(int range);
+	T*	 data_;
+	int	 length_;
 
   private:
-	int length_;
 	int max_length_;
-	T*	data_;
 };
 
 template <typename T> void SequenceList<T>::InitList(int max_length)
@@ -32,11 +34,7 @@ template <typename T> void SequenceList<T>::InitList(int max_length)
 	}
 }
 
-template <typename T> int SequenceList<T>::Length()
-{
-	std::cout << this->length_ << std::endl;
-	return this->length_;
-}
+template <typename T> int SequenceList<T>::Length() { return this->length_; }
 
 template <typename T> int SequenceList<T>::LocateElem(T elem)
 {
@@ -107,9 +105,9 @@ template <typename T> void SequenceList<T>::PrintList()
 template <typename T> bool SequenceList<T>::Empty()
 {
 	if (this->length_)
-		return true;
-	else
 		return false;
+	else
+		return true;
 }
 
 template <typename T> void SequenceList<T>::DestoryList()
@@ -117,6 +115,15 @@ template <typename T> void SequenceList<T>::DestoryList()
 	delete[] this->data_;
 	this->max_length_ = 0;
 	this->length_	  = 0;
+}
+
+template <typename T> void SequenceList<T>::FillRandInt(int range)
+{
+	for (int i = 0; i < this->max_length_; ++i)
+	{
+		this->data_[i] = (T)(rand() % range);
+	}
+	this->length_ = this->max_length_;
 }
 
 #endif
