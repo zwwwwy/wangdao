@@ -47,17 +47,14 @@ template <typename T> int SequenceList<T>::LocateElem(T elem)
 			return i;
 		}
 	}
-	std::cout << "Element not found." << std::endl;
+	throw std::out_of_range("Element not found.");
 	return -1;
 }
 
 template <typename T> T SequenceList<T>::GetElem(int idx)
 {
-	if (idx >= this->length_)
-	{
-		std::cout << "Out of range." << std::endl;
-		return NULL;
-	}
+	if (idx >= this->length_ || idx < 0)
+		throw std::out_of_range("Access denied.");
 	return this->data_[idx];
 }
 
