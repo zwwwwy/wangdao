@@ -134,6 +134,26 @@ int DeleteNode(LNode_t* list, int idx)
 	return 1;
 }
 
+LNode_t* ReverseList(LNode_t* node, LNode_t* next_ptr)
+{
+	LNode_t* next = node->next;
+	node->next	  = next_ptr;
+	if (next == NULL)
+	{
+		return node;
+	}
+	node = ReverseList(next, node);
+	return node;
+}
+
+void Reverse(LNode_t* head)
+{
+	LNode_t* list = head->next;
+	LNode_t* tail;
+	tail	   = ReverseList(list, NULL);
+	head->next = tail;
+}
+
 int test()
 {
 	LNode_t	 list;
@@ -153,8 +173,21 @@ int test()
 	return 0;
 }
 
+void test_reverse()
+{
+	LNode_t* head = (LNode_t*)malloc(sizeof(LNode_t));
+	InitList(head);
+	for (int i = 0; i < 10; ++i)
+		AppendNode(head, i);
+	PrintList(head);
+
+	Reverse(head);
+	PrintList(head);
+}
+
 int main()
 {
-	test();
+	// test();
+	test_reverse();
 	return 0;
 }
